@@ -1,17 +1,17 @@
 #!/bin/bash
 
 echo "Provide the Domain that is needed to replaced"
-read varprimary
+read varprimary <&1
 
 echo "Provide the Domain to be replaced"
-read varsecondary
+read varsecondary <&1
 
 echo "Running Dry Run"
 wp search-replace $varprimary $varsecondary --all-tables --dry-run
 
 
 echo Do you want to continue[yes/no]?
-read ANSWER
+read ANSWER <&1
 
 if [ -z "$ANSWER" ]; then
         echo "There is no answer."
