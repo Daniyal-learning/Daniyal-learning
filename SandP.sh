@@ -39,7 +39,7 @@ if [ "$ANSWER" = "yes" ]; then
 wp search-replace '$varprimary' '$varsecondary' --all-tables
 wp cache flush
         echo "Search and Replaced completed"
-        echi "Cache has been flush"
+        echo "Cache has been flush"
         exit
 
 elif [ "$ANSWER" = "no" ]; then
