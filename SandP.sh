@@ -36,7 +36,7 @@ fi
 
 if [ "$ANSWER" = "yes" ]; then
         echo "Running Search and Replace."
-wp search-replace '$varprimary' '$varsecondary' --all-tables
+wp search-replace $varprimary $varsecondary --all-tables
 wp cache flush
         echo "Search and Replaced completed"
         echo "Cache has been flush"
