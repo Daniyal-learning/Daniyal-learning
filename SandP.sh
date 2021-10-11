@@ -1,4 +1,20 @@
 #!/bin/bash
+set -e
+echo "First take a backup of database"
+echo "Provide Database Name"
+read databasename < /dev/tty
+
+echo  "Database Username"
+read username < /dev/tty
+
+echo "Database Password"
+read password < /dev/tty
+
+echo "Taking backup now ..."
+mysqldump -u $username -p$password $databasename > ../private_html/backup.sql
+
+
+echo "Backup has been created and placed in the private_html"
 
 echo "Provide the Domain that is needed to replaced"
 read varprimary < /dev/tty
