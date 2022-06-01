@@ -1,0 +1,16 @@
+#!/bin/bash
+
+echo -e "Database name:"
+read db
+
+echo -e "New Password:"
+read np 
+
+#cs=$(egrep -o [0-9A-Za-z]{32}  /home/master/applications/$db/public_html/app/etc/env.php)
+$(awk -F "'" '/key/ {print $4}' /home/master/applications/$db/public_html/app/etc/env.php)
+mypass=$(awk -F "'" '/password/ {print $4}' /home/master/applications/$db/public_html/app/etc/env.php)
+echo -e $cs
+echo -e $mypass
+
+
+mysql -D${db} -u ${db} -p${mypass} -e "UPDATE admin_user SET password = CONCAT(SHA2('${cs}${np}', 256), ':${cs}:1') WHERE username = 'admin';"
