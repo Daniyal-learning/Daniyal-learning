@@ -4,6 +4,12 @@
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
+# Check if Redis server is running
+if ! command -v redis-cli &>/dev/null || ! redis-cli ping &>/dev/null; then
+    echo "Redis is not installed or the server is not running. Exiting..."
+    exit 1
+fi
+
 # Check if the user is root
 if [ $(id -u) -eq 0 ]; then
   allow_root="--allow-root"
