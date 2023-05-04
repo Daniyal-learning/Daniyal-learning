@@ -41,6 +41,8 @@ do
     # Run the wp redis info command and filter for the status line
     status=$(wp redis info $allow_root 2>/dev/null | grep -w "Status")
 
+        echo "$app_name - $app_domain"
+
     # Check if Redis is connected
     if [[ $status == "Status: Connected" ]]; then
         ((connected_apps++)) # Increment connected_apps counter
