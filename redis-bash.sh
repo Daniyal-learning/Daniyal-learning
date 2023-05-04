@@ -34,14 +34,15 @@ do
 
     # Get the app name using wp-cli
     app_name=$(wp option get blogname $allow_root 2>/dev/null)
-
+	echo $app_name;
     # Get the app domain using wp-cli
     app_domain=$(wp option get siteurl $allow_root 2>/dev/null | awk -F/ '{print $3}')
+    echo $app_domain;
 
     # Run the wp redis info command and filter for the status line
     status=$(wp redis info $allow_root 2>/dev/null | grep -w "Status")
 
-        echo "$app_name - $app_domain"
+        #echo "$app_name - $app_domain"
 
     # Check if Redis is connected
     if [[ $status == "Status: Connected" ]]; then
