@@ -30,18 +30,16 @@ do
     ((total_apps++)) # Increment total_apps counter
     echo -n "Checking Redis status for app $total_apps: "
     # Change directory to the app directory
-    cd "$app"
+    cd "$app" 2>/dev/null
 
     # Get the app name using wp-cli
-    app_name=$(wp option get blogname $allow_root)
+    app_name=$(wp option get blogname $allow_root 2>/dev/null)
 
     # Get the app domain using wp-cli
-    app_domain=$(wp option get siteurl $allow_root | awk -F/ '{print $3}')
-
-    echo "$app_name - $app_domain"
+    app_domain=$(wp option get siteurl $allow_root 2>/dev/null | awk -F/ '{print $3}')
 
     # Run the wp redis info command and filter for the status line
-    status=$(wp redis info $allow_root | grep -w "Status")
+    status=$(wp redis info $allow_root 2>/dev/null | grep -w "Status")
 
     # Check if Redis is connected
     if [[ $status == "Status: Connected" ]]; then
@@ -54,7 +52,7 @@ do
     fi
 
     echo ""
-done
+done 2>/dev/null
 
 # Calculate the number of remaining apps
 remaining_apps=$((total_apps - connected_apps))
@@ -63,4 +61,3 @@ remaining_apps=$((total_apps - connected_apps))
 echo "Total WordPress apps: $total_apps"
 echo "Connected to Redis: $connected_apps"
 echo "Remaining: $remaining_apps"
-
